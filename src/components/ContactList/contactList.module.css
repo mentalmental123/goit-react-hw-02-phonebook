@@ -1,0 +1,18 @@
+.contact-item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.contact-button {
+  padding: 5px;
+  height: auto;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid black;
+  transition: all 250ms;
+}
+
+.contact-button:hover {
+  background-color: aliceblue;
+}
