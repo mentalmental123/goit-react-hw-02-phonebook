@@ -16,4 +16,14 @@
 
 .contact-form-button {
   margin-top: 20px;
+  padding: 5px;
+  height: auto;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid black;
+  transition: all 250ms;
+}
+
+.contact-form-button:hover {
+  background-color: aliceblue;
 }

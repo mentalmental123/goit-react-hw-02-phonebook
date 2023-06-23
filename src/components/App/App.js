@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactDOM } from "react";
 import { nanoid } from "nanoid";
 
 import css from "./app.module.css";
@@ -17,31 +16,16 @@ class App extends React.Component {
         { id: "id-3", name: "Eden Clements", number: "645-17-79" },
         { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
       ],
-      name: "",
-      number: "",
       filter: "",
     };
   }
 
-  handleContactInfo = (evt) => {
-    const { name, value } = evt.target;
-    this.setState({ [name]: value });
-  };
-
-  onSubmitForm = (evt) => {
-    evt.preventDefault();
-    // this.state.contacts.push(this.state.name);
-    this.printContacts(this.state);
-  };
-
-  printContacts = (state) => {
-    console.log(state);
-
+  printContacts = (formState) => {
+    const { name, number } = formState;
     this.setState((prevState) => ({
-      // contacts: [...prevState.contacts, state.name + ": " + state.number],
       contacts: [
         ...prevState.contacts,
-        { id: nanoid(), name: state.name, number: state.number },
+        { id: nanoid(), name: name, number: number },
       ],
     }));
   };
@@ -61,13 +45,15 @@ class App extends React.Component {
   };
 
   render() {
-    const { contacts, name, number, filter } = this.state;
+    const { contacts, filter } = this.state;
     return (
       <div className={css["container"]}>
         <h1>Phonebook</h1>
         <Form
-          handleContactInfo={this.handleContactInfo}
-          onSubmitForm={this.onSubmitForm}
+          printContacts={this.printContacts}
+          contactsArr={this.state.contacts}
+          // handleContactInfo={this.handleContactInfo}
+          // onSubmitForm={this.onSubmitForm}
         ></Form>
         <div>
           <h2>Contacts</h2>
@@ -77,7 +63,11 @@ class App extends React.Component {
               <li>There is nothing</li>
             ) : (
               contacts
-                .filter((el) => el.name.toLocaleLowerCase().includes(filter))
+                .filter((el) =>
+                  el.name
+                    .toLocaleLowerCase()
+                    .includes(filter.toLocaleLowerCase().trim())
+                )
                 .map((contact) => (
                   <Contacts
                     key={contact.id}
