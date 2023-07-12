@@ -1,7 +1,6 @@
 import css from "./contactList.module.css";
-import React, { Component } from "react";
 
-class Contacts extends Component {
+function Contacts({ contact: { id, name, number }, deleteContact }) {
   // componentDidUpdate() {
   //   const { contact } = this.props;
   //   if (contact) {
@@ -10,28 +9,26 @@ class Contacts extends Component {
   //   }
   // }
 
-  render() {
-    const {
-      contact: { id, name, number },
-      deleteContact,
-    } = this.props;
-    return (
-      <li className={css["contact-item"]} key={id}>
-        <p>
-          {name}
-          {": "}
-          {number}
-        </p>
-        <button
-          key={id}
-          onClick={() => deleteContact(id)}
-          className={css["contact-button"]}
-        >
-          delete
-        </button>
-      </li>
-    );
-  }
+  // const {
+  //   contact: { id, name, number },
+  //   deleteContact,
+  // } = this.props;
+  return (
+    <li className={css["contact-item"]} key={id}>
+      <p>
+        {name}
+        {": "}
+        {number}
+      </p>
+      <button
+        key={id}
+        onClick={() => deleteContact(id)}
+        className={css["contact-button"]}
+      >
+        delete
+      </button>
+    </li>
+  );
 }
 
 export default Contacts;
