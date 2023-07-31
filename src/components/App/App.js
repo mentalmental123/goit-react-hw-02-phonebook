@@ -7,33 +7,13 @@ import css from "./app.module.css";
 import Search from "../Filter/Filter";
 import Contacts from "../ContactList/ContactList";
 import Form from "../ContactForm/ContactForm";
-import { addContact } from "../../redux/actions";
+import { addContact } from "../../redux/contactsSlice";
 
 function App() {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     contacts: [],
-  //     filter: "",
-  //   };
-  // }
-
-  // const [contacts, setContacts] = useState([]);
-  // const [filter, setFilter] = useState("");
-
   const { contacts } = useSelector((state) => state.contacts);
   const { filter } = useSelector((state) => state.filter);
 
   const dispatch = useDispatch();
-
-  // const printContacts = (formState) => {
-  //   const { name, number } = formState;
-  //   setContacts([...contacts, { id: nanoid(), name: name, number: number }]);
-  // };
-
-  // const deleteContact = (contactId) => {
-  //   setContacts(contacts.filter((contacts) => contactId !== contacts.id));
-  // };
 
   // localstorage
 
@@ -48,23 +28,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(contacts);
     if (contacts) {
       localStorage.setItem("contacts", JSON.stringify(contacts));
       return;
     }
   }, [contacts]);
 
-  // const { contacts, filter } = this.state;
   return (
     <div className={css["container"]}>
       <h1>Phonebook</h1>
-      <Form
-      // printContacts={printContacts}
-      // contactsArr={contacts}
-      // handleContactInfo={handleContactInfo}
-      // onSubmitForm={onSubmitForm}
-      ></Form>
+      <Form></Form>
       <div>
         {contacts.length === 0 ? (
           ""

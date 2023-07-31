@@ -1,8 +1,8 @@
 import css from "./filter.module.css";
 import { useDispatch } from "react-redux";
-import { setFilter } from "../../redux/actions";
+import { setFilter } from "../../redux/filterContactsSlice";
 
-function Search({ findContacts }) {
+function Search() {
   const dispatch = useDispatch();
 
   return (

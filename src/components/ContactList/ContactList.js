@@ -1,7 +1,6 @@
 import css from "./contactList.module.css";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { deleteContact } from "../../redux/actions";
+import { deleteContact } from "../../redux/contactsSlice";
 
 function Contacts({ contact: { id, name, number } }) {
   // componentDidUpdate() {
