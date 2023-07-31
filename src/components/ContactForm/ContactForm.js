@@ -1,36 +1,24 @@
 import css from "./contactForm.module.css";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { addContact } from "../../redux/actions";
 
-export default function Form({ contactsArr, printContacts }) {
-  // constructor() {
-  //   super();
+export default function Form() {
+  const { contacts } = useSelector((state) => state.contacts);
 
-  //   this.state = {
-  //     name: "",
-  //     number: "",
-  //   };
-  // }
-
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-
-  const handleContactInfo = (evt) => {
-    const { name, value } = evt.target;
-    if (name === "name") {
-      setName(value);
-    } else {
-      setNumber(value);
-    }
-  };
+  const dispatch = useDispatch();
 
   const onSubmitForm = (evt) => {
     evt.preventDefault();
-    if (contactsArr.find(({ name: nameInArr }) => nameInArr === name)) {
-      alert(name + " is already in contacts");
+
+    const form = evt.target;
+
+    if (contacts.find(({ name: nameInArr }) => nameInArr === form.name.value)) {
+      alert(form.name.value + " is already in contacts");
       return;
     }
-    const tempState = { name, number };
-    printContacts(tempState);
+    dispatch(addContact(form.name.value, form.number.value));
   };
 
   return (
@@ -39,7 +27,6 @@ export default function Form({ contactsArr, printContacts }) {
         <label htmlFor="text">Name</label>
         <input
           className={css["contact-form-input"]}
-          onChange={handleContactInfo}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -49,7 +36,6 @@ export default function Form({ contactsArr, printContacts }) {
         <label htmlFor="tel">Telephone</label>
         <input
           className={css["contact-form-input"]}
-          onChange={handleContactInfo}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

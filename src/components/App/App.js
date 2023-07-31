@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { nanoid } from "nanoid";
+import React, { useEffect } from "react";
+// import { nanoid } from "nanoid";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useDispatch } from "react-redux";
 
 import css from "./app.module.css";
 import Search from "../Filter/Filter";
 import Contacts from "../ContactList/ContactList";
 import Form from "../ContactForm/ContactForm";
+import { addContact } from "../../redux/actions";
 
 function App() {
   // constructor() {
@@ -15,34 +18,37 @@ function App() {
   //   };
   // }
 
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState("");
+  // const [contacts, setContacts] = useState([]);
+  // const [filter, setFilter] = useState("");
 
-  const printContacts = (formState) => {
-    const { name, number } = formState;
-    setContacts([...contacts, { id: nanoid(), name: name, number: number }]);
-  };
+  const { contacts } = useSelector((state) => state.contacts);
+  const { filter } = useSelector((state) => state.filter);
 
-  const findContacts = (evt) => {
-    const FilterQuerry = evt.target.value;
-    // console.log(FilterQuerry);
-    setFilter(FilterQuerry);
-  };
+  const dispatch = useDispatch();
 
-  const deleteContact = (contactId) => {
-    setContacts(contacts.filter((contacts) => contactId !== contacts.id));
-  };
+  // const printContacts = (formState) => {
+  //   const { name, number } = formState;
+  //   setContacts([...contacts, { id: nanoid(), name: name, number: number }]);
+  // };
+
+  // const deleteContact = (contactId) => {
+  //   setContacts(contacts.filter((contacts) => contactId !== contacts.id));
+  // };
 
   // localstorage
 
   useEffect(() => {
     const contactsSavedData = JSON.parse(localStorage.getItem("contacts"));
     if (contactsSavedData) {
-      setContacts(contactsSavedData);
+      contactsSavedData.map(({ name, number }) =>
+        dispatch(addContact(name, number))
+      );
     }
+    return;
   }, []);
 
   useEffect(() => {
+    console.log(contacts);
     if (contacts) {
       localStorage.setItem("contacts", JSON.stringify(contacts));
       return;
@@ -54,10 +60,10 @@ function App() {
     <div className={css["container"]}>
       <h1>Phonebook</h1>
       <Form
-        printContacts={printContacts}
-        contactsArr={contacts}
-        // handleContactInfo={handleContactInfo}
-        // onSubmitForm={onSubmitForm}
+      // printContacts={printContacts}
+      // contactsArr={contacts}
+      // handleContactInfo={handleContactInfo}
+      // onSubmitForm={onSubmitForm}
       ></Form>
       <div>
         {contacts.length === 0 ? (
@@ -65,7 +71,7 @@ function App() {
         ) : (
           <>
             <h2>Contacts</h2>
-            <Search findContacts={findContacts}></Search>
+            <Search></Search>
           </>
         )}
         <ul>
@@ -76,15 +82,9 @@ function App() {
               .filter((el) =>
                 el.name
                   .toLocaleLowerCase()
-                  .includes(filter.toLocaleLowerCase().trim())
+                  .includes(filter.toLowerCase().trim())
               )
-              .map((contact) => (
-                <Contacts
-                  key={contact.id}
-                  contact={contact}
-                  deleteContact={deleteContact}
-                ></Contacts>
-              ))
+              .map((contact) => <Contacts contact={contact}></Contacts>)
           )}
         </ul>
       </div>

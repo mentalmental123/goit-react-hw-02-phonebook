@@ -1,6 +1,9 @@
 import css from "./contactList.module.css";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { deleteContact } from "../../redux/actions";
 
-function Contacts({ contact: { id, name, number }, deleteContact }) {
+function Contacts({ contact: { id, name, number } }) {
   // componentDidUpdate() {
   //   const { contact } = this.props;
   //   if (contact) {
@@ -9,10 +12,16 @@ function Contacts({ contact: { id, name, number }, deleteContact }) {
   //   }
   // }
 
-  // const {
-  //   contact: { id, name, number },
-  //   deleteContact,
-  // } = this.props;
+  // console.log(contact);
+
+  // // const contacts = useSelector((state) => state.contacts);
+
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteContact(id));
+  };
+
   return (
     <li className={css["contact-item"]} key={id}>
       <p>
@@ -20,11 +29,7 @@ function Contacts({ contact: { id, name, number }, deleteContact }) {
         {": "}
         {number}
       </p>
-      <button
-        key={id}
-        onClick={() => deleteContact(id)}
-        className={css["contact-button"]}
-      >
+      <button key={id} onClick={handleDelete} className={css["contact-button"]}>
         delete
       </button>
     </li>
