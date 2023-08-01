@@ -15,31 +15,12 @@ function App() {
 
   const dispatch = useDispatch();
 
-  // localstorage
-
-  useEffect(() => {
-    const contactsSavedData = JSON.parse(localStorage.getItem("contacts"));
-    if (contactsSavedData) {
-      contactsSavedData.map(({ name, number }) =>
-        dispatch(addContact(name, number))
-      );
-    }
-    return;
-  }, []);
-
-  useEffect(() => {
-    if (contacts) {
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-      return;
-    }
-  }, [contacts]);
-
   return (
     <div className={css["container"]}>
       <h1>Phonebook</h1>
       <Form></Form>
       <div>
-        {contacts.length === 0 ? (
+        {contacts?.length === 0 ? (
           ""
         ) : (
           <>
@@ -48,7 +29,7 @@ function App() {
           </>
         )}
         <ul>
-          {contacts.length === 0 ? (
+          {contacts?.length === 0 ? (
             <li>There is nothing</li>
           ) : (
             contacts
