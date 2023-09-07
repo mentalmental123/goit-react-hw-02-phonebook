@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import { nanoid } from "nanoid";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
@@ -7,13 +7,10 @@ import css from "./app.module.css";
 import Search from "../Filter/Filter";
 import Contacts from "../ContactList/ContactList";
 import Form from "../ContactForm/ContactForm";
-import { addContact } from "../../redux/contactsSlice";
 
 function App() {
   const { contacts } = useSelector((state) => state.contacts);
   const { filter } = useSelector((state) => state.filter);
-
-  const dispatch = useDispatch();
 
   return (
     <div className={css["container"]}>

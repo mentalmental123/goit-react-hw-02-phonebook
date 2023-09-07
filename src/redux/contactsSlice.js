@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 
-const localStorageContacts =
-  localStorage.getItem("contacts") === null
-    ? []
-    : JSON.parse(localStorage.getItem("contacts"));
+// const localStorageContacts =
+//   localStorage.getItem("contacts") === null
+//     ? []
+//     : JSON.parse(localStorage.getItem("contacts"));
 
 const contactsInitialState = {
-  contacts: localStorageContacts,
+  contacts: [],
 };
 
 const contactsSlice = createSlice({
@@ -33,7 +33,7 @@ const contactsSlice = createSlice({
       state.contacts = state.contacts.filter(
         (contact) => contact.id !== action.payload
       );
-      localStorage.setItem("contacts", JSON.stringify(state.contacts));
+      // localStorage.setItem("contacts", JSON.stringify(state.contacts));
     },
   },
 });
