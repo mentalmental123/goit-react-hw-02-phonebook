@@ -16,9 +16,11 @@ export default function Form() {
 
     if (contacts.find(({ name: nameInArr }) => nameInArr === form.name.value)) {
       alert(form.name.value + " is already in contacts");
+      form.reset();
       return;
     }
     dispatch(addContact(form.name.value, form.number.value));
+    form.reset();
   };
 
   return (

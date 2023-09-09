@@ -10,7 +10,6 @@ import Form from "../ContactForm/ContactForm";
 
 function App() {
   const { contacts } = useSelector((state) => state.contacts);
-  const { filter } = useSelector((state) => state.filter);
 
   return (
     <div className={css["container"]}>
@@ -18,26 +17,14 @@ function App() {
       <Form></Form>
       <div>
         {contacts?.length === 0 ? (
-          ""
+          <p>There is nothing</p>
         ) : (
           <>
             <h2>Contacts</h2>
             <Search></Search>
+            <Contacts />
           </>
         )}
-        <ul>
-          {contacts?.length === 0 ? (
-            <li>There is nothing</li>
-          ) : (
-            contacts
-              .filter((el) =>
-                el.name
-                  .toLocaleLowerCase()
-                  .includes(filter.toLowerCase().trim())
-              )
-              .map((contact) => <Contacts contact={contact}></Contacts>)
-          )}
-        </ul>
       </div>
     </div>
   );
