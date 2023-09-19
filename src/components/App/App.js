@@ -1,7 +1,8 @@
-import React from "react";
-// import { nanoid } from "nanoid";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchContact } from "../../redux/operations";
+import { selectError, selectIsLoading } from "../../redux/selectors";
 
 import css from "./app.module.css";
 import Search from "../Filter/Filter";
@@ -9,14 +10,21 @@ import Contacts from "../ContactList/ContactList";
 import Form from "../ContactForm/ContactForm";
 
 function App() {
-  const { contacts } = useSelector((state) => state.contacts);
+  const { items } = useSelector((state) => state.contacts);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading) || null;
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchContact());
+  }, [dispatch]);
 
   return (
     <div className={css["container"]}>
       <h1>Phonebook</h1>
       <Form></Form>
       <div>
-        {contacts?.length === 0 ? (
+        {items?.length === 0 ? (
           <p>There is nothing</p>
         ) : (
           <>

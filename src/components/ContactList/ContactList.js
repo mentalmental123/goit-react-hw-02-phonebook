@@ -1,11 +1,11 @@
 import css from "./contactList.module.css";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/operations";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 function Contacts() {
   const dispatch = useDispatch();
-  const { contacts } = useSelector((state) => state.contacts);
+  const { items } = useSelector((state) => state.contacts);
   const { filter } = useSelector((state) => state.filter);
 
   const handleDelete = (id) => {
@@ -14,16 +14,16 @@ function Contacts() {
 
   return (
     <ul>
-      {contacts
+      {items
         .filter((el) =>
           el.name.toLocaleLowerCase().includes(filter.toLowerCase().trim())
         )
-        .map(({ name, number, id }) => (
+        .map(({ name, phone, id }) => (
           <li className={css["contact-item"]} key={id}>
             <p>
               {name}
               {": "}
-              {number}
+              {phone}
             </p>
             <button
               key={id}
