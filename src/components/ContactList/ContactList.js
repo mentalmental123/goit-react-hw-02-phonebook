@@ -11,7 +11,6 @@ function Contacts() {
   const handleDelete = (id) => {
     dispatch(deleteContact(id));
   };
-
   return (
     <ul>
       {items
@@ -20,11 +19,13 @@ function Contacts() {
         )
         .map(({ name, phone, id }) => (
           <li className={css["contact-item"]} key={id}>
-            <p>
-              {name}
-              {": "}
-              {phone}
-            </p>
+            {
+              <p>
+                {name}
+                {": "}
+                {phone}
+              </p>
+            }
             <button
               key={id}
               onClick={() => handleDelete(id)}
