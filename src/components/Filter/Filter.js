@@ -2,7 +2,7 @@ import css from "./filter.module.css";
 import { useDispatch } from "react-redux";
 import { setFilter } from "../../redux/filterContactsSlice";
 
-function Search() {
+export const Search = () => {
   const dispatch = useDispatch();
 
   return (
@@ -14,6 +14,4 @@ function Search() {
       ></input>
     </div>
   );
-}
-
-export default Search;
+};

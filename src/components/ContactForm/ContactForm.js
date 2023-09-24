@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/operations";
 
-export default function Form() {
+export const Form = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.contacts);
 
@@ -54,4 +54,4 @@ export default function Form() {
       </button>
     </form>
   );
-}
+};

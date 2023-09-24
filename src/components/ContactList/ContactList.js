@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/operations";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
-function Contacts() {
+export const Contacts = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.contacts);
   const { filter } = useSelector((state) => state.filter);
@@ -37,6 +37,4 @@ function Contacts() {
         ))}
     </ul>
   );
-}
-
-export default Contacts;
+};
